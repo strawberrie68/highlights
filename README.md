@@ -37,6 +37,8 @@ This was shown when I just wanted to toggle the Heart Component. Although the co
 
 
 ## 👩‍💻 To try the project
-npm start
-in .env file have a Mongoose atlas string
+
+in .env file have a Mongoose atlas string "ATLAS_URI"
+npm install cors dotenv express mongoose
+
 

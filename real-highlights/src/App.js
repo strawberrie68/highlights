@@ -16,24 +16,24 @@ import CreateBook from './components/CreateBook';
 function App() {
   return (
     <div className="App">
-      
-    
-     
-          <Router>
-          <NavBar />
-          <div>
-            <Routes>
-              <Route exact path='/' element={<ShowBookList />} />
-              <Route path='/show-book/:id' element={<ShowBookDetails />} />
-              <Route path='/create-book' element={<CreateBook />} />
-            </Routes>
-          </div>
-        </Router>
-     
-     
- 
 
-      
+
+
+      <Router>
+        <NavBar />
+        <div>
+          <Routes>
+            <Route exact path='/' element={<ShowBookList />} />
+            <Route path='/show-book/:id' element={<ShowBookDetails />} />
+            <Route path='/create-book' element={<CreateBook />} />
+          </Routes>
+        </div>
+      </Router>
+
+
+
+
+
     </div>
   );
 }

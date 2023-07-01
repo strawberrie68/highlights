@@ -40,17 +40,17 @@ function ShowBookList() {
       : books.map((book, k) => <BookCard book={book} key={k} />);
 
 
-  function updateQuote(id, matchQuote){
+  function updateQuote(id, matchQuote) {
     axios
-    .post(`http://localhost:6010/quotes/update/${id}`,matchQuote)
-    .then((res) => {
-      console.log('updated Quote');
-    })
-    .catch((err) => {
-      console.log('Error in UpdateQuoteInfo!');
-    });
+      .post(`http://localhost:6010/quotes/update/${id}`, matchQuote)
+      .then((res) => {
+        console.log('updated Quote');
+      })
+      .catch((err) => {
+        console.log('Error in UpdateQuoteInfo!');
+      });
 
-}
+  }
 
 
   return (
@@ -59,27 +59,27 @@ function ShowBookList() {
 
 
 
-        <AnkiCard quote={quotes}/>
+        <AnkiCard quote={quotes} />
 
 
-        
+
         <div className='flex justify-between'>
-            <div className='flex flex-col flex-start px-3'>
-                <p className='text-2xl  text-zinc-500 font-italiana'>My Bookshelf</p>
-                <p className='text-sm text-left text-zinc-300 mt-2'>All your books</p>
-            </div>
-           
+          <div className='flex flex-col flex-start px-3'>
+            <p className='text-2xl  text-zinc-500 font-italiana'>My Bookshelf</p>
+            <p className='text-sm text-left text-zinc-300 mt-2'>All your books</p>
+          </div>
 
-         
-            <Link
-              to='/create-book'
-              className='rounded-2xl text-sm btn button-yellow text-zinc-500 border-amber-200 '
-            >
-              + Add New Book
-            </Link>
-        
-       
-         
+
+
+          <Link
+            to='/create-book'
+            className='rounded-2xl text-sm btn button-yellow text-zinc-500 border-amber-200 '
+          >
+            + Add New Book
+          </Link>
+
+
+
         </div>
 
         <div className='list'>{bookList}</div>

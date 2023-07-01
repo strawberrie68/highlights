@@ -9,22 +9,22 @@ const bookSchema = new Schema({
         unique: true,
         trim: true
     },
-    author:{
+    author: {
         type: String,
         required: true,
     },
     description: {
         type: String,
         required: true,
-    }, 
-    bookImg:{
+    },
+    bookImg: {
         type: String,
         required: true,
     },
     genre: {
-        type:String
+        type: String
     },
-    tags:{
+    tags: {
         type: String,
     },
 
@@ -39,6 +39,10 @@ const bookSchema = new Schema({
     quote: {
         type: [Schema.Types.ObjectId],
         ref: "Quote"
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }
 
 });

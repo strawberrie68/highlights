@@ -7,24 +7,24 @@ const BookCard = (props) => {
 
   return (
     <div className='card-container'>
-     
-      
-       
-          <Link to={`/show-book/${book._id}`}>
-            <img
-                src={book.bookImg}
-                alt='Books'
-                height={200}
-            />
 
-            <div className='desc'>
-                <h2 className='text-zinc-400'>  {book.title}</h2>
-                <p className='text-zinc-300 mt-1 text-sm'>{book.author}</p>
-            
-            </div>
-          </Link>
-      
-      
+
+
+      <Link to={`/show-book/${book._id}`}>
+        <img
+          src={book.bookImg}
+          alt='Books'
+          height={200}
+        />
+
+        <div className='desc'>
+          <h2 className='text-zinc-400'>  {book.title}</h2>
+          <p className='text-zinc-300 mt-1 text-sm'>{book.author}</p>
+
+        </div>
+      </Link>
+
+
     </div>
   );
 };

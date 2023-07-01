@@ -7,11 +7,11 @@ const quoteSchema = new Schema({
         type: String,
         required: true,
     },
-    note:{
+    note: {
         type: String,
         required: true,
     },
-    tag:{
+    tag: {
         type: String,
     },
     wantToRmb: {
@@ -19,15 +19,15 @@ const quoteSchema = new Schema({
         default: true
     },
     ease: {
-        type:Number,
+        type: Number,
         default: 2.5
     },
     daysPracticed: {
         type: Number,
-        default:0
+        default: 0
     },
     graduated: {
-        type: Boolean, 
+        type: Boolean,
         default: false
     },
     currentInterval: {
@@ -38,9 +38,13 @@ const quoteSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }
 
-},{
+
+}, {
     timestamps: true
 });
 

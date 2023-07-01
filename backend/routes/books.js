@@ -13,7 +13,7 @@ router.route('/:id').get((req, res) => {
     Book.findById(req.params.id)
         .populate("quote")
         .then(book => res.json(book))
-        .catch(err => res.status(404).json({ nobookfound: 'No Book found'}))
+        .catch(err => res.status(404).json({ nobookfound: 'No Book found' }))
 })
 
 router.route('/add').post((req, res) => {
@@ -27,7 +27,7 @@ router.route('/add').post((req, res) => {
     const isFinishedReading = req.body.isFinishedReading;
 
     const newBook = new Book({
-        title, author, description, bookImg, tag, fav, isFinishedReading,genre
+        title, author, description, bookImg, tag, fav, isFinishedReading, genre
     })
 
     newBook.save()
@@ -37,40 +37,31 @@ router.route('/add').post((req, res) => {
 
 router.route('/:id').post((req, res) => {
     Quote.create(req.body)
-    .then(function(dbQuotes) {
-        return Book.findOneAndUpdate({ _id: req.params.id }, 
-                                     { $push: {quote: dbQuotes._id}},
-                                     { upsert: true })
-    })
-    .then(function(dbBook) {
-        res.json(dbBook)
-    })
-    .catch(err => res.json(err))
+        .then(function (dbQuotes) {
+            return Book.findOneAndUpdate({ _id: req.params.id },
+                { $push: { quote: dbQuotes._id } },
+                { upsert: true })
+        })
+        .then(function (dbBook) {
+            res.json(dbBook)
+        })
+        .catch(err => res.json(err))
 })
 
 router.route('/:id').delete((req, res) => {
     Book.findByIdAndDelete(req.params.id)
         .then(() => res.json('Book deleted'))
-        .catch(err => res.status(400).json('Error: ' + err ))
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
 router.put('/update/:id', (req, res) => {
     Book.findByIdAndUpdate(req.params.id, req.body)
-      .then(book => res.json({ msg: 'Updated successfully' }))
-      .catch(err =>
-        res.status(400).json({ error: 'Unable to update the Database' })
-      );
-  });
-
-router.route('/:id').delete((req,res) => {
-    Book.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Book deleted'))
-        .catch(err => res.status(400).json('Error: ' + err))
-})
-//review please
-
-
+        .then(book => res.json({ msg: 'Updated successfully' }))
+        .catch(err =>
+            res.status(400).json({ error: 'Unable to update the Database' })
+        );
+});
 
 
 

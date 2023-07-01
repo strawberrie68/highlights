@@ -19,13 +19,13 @@ const CreateBook = (props) => {
   });
 
   const onChange = (event) => {
-    const { name, value, type, checked} = event.target
+    const { name, value, type, checked } = event.target
     setBook(prevBook => {
-        return {
-            ...prevBook,
-            [name]: type === "checkbox" ? checked : value
+      return {
+        ...prevBook,
+        [name]: type === "checkbox" ? checked : value
 
-        }
+      }
     })
   };
 
@@ -36,14 +36,14 @@ const CreateBook = (props) => {
       .post('http://localhost:6010/books/add', book)
       .then((res) => {
         setBook({
-            title: '',
-            author: '',
-            bookImg: '',
-            description: '',
-            genre: '',
-            tags: '',
-            fav: true,
-            finishedReading: false,
+          title: '',
+          author: '',
+          bookImg: '',
+          description: '',
+          genre: '',
+          tags: '',
+          fav: true,
+          finishedReading: false,
         });
 
         // Push to /
@@ -79,7 +79,7 @@ const CreateBook = (props) => {
                   onChange={onChange}
                 />
               </div>
-              
+
               <div className='form-group'>
                 <input
                   type='text'
@@ -134,32 +134,32 @@ const CreateBook = (props) => {
                 />
               </div>
               <div className='flex align-middle items-center my-4'>
-                    <div className='form-group'>
-                        <input
-                        id='fav'
-                        type='checkbox'
-                        name='fav'
-                        className='form-control'
-                        checked={book.fav}
-                        onChange={onChange}
-                        />
-                    </div>
-                    <label htmlFor='fav' className='mx-4 '> Would you like to study this book? </label>
+                <div className='form-group'>
+                  <input
+                    id='fav'
+                    type='checkbox'
+                    name='fav'
+                    className='form-control'
+                    checked={book.fav}
+                    onChange={onChange}
+                  />
+                </div>
+                <label htmlFor='fav' className='mx-4 '> Would you like to study this book? </label>
               </div>
-            
-              <div className='flex items-center'> 
-                    <div className='form-group'>
-                        <input
-                        id='finshedReading'
-                        type='checkbox'
-                        placeholder='Finished Reading?'
-                        name='finishedReading'
-                        className='form-control'
-                        checked={book.finishedReading}
-                        onChange={onChange}
-                        />
-                    </div>
-                    <label htmlFor='finishedReading' className='mx-4'>Finished Reading? </label>
+
+              <div className='flex items-center'>
+                <div className='form-group'>
+                  <input
+                    id='finshedReading'
+                    type='checkbox'
+                    placeholder='Finished Reading?'
+                    name='finishedReading'
+                    className='form-control'
+                    checked={book.finishedReading}
+                    onChange={onChange}
+                  />
+                </div>
+                <label htmlFor='finishedReading' className='mx-4'>Finished Reading? </label>
 
               </div>
 

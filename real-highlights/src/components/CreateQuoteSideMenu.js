@@ -11,7 +11,7 @@ export default function CreateQuoteSideMenu(props) {
         quote: '',
         note: '',
         tag: '',
-        fav: true
+        fav: false
     });
 
     const onChange = (event) => {
@@ -34,7 +34,7 @@ export default function CreateQuoteSideMenu(props) {
                     quote: '',
                     note: '',
                     tag: '',
-                    fav: true
+                    fav: false
                 });
 
                 navigate(`/show-book/${id}`);

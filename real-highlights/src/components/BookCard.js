@@ -18,7 +18,7 @@ const BookCard = (props) => {
         />
 
         <div className='desc'>
-          <h2 className='text-zinc-400'>  {book.title.length <= 20 ?book.title: book.title.slice(0,20)  + '...'}</h2>
+          <h2 className='text-zinc-400'>  {book.title.length <= 20 ? book.title : book.title.slice(0, 16) + '...'}</h2>
           <p className='text-zinc-300 mt-1 text-sm'>{book.author}</p>
 
         </div>

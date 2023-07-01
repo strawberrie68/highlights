@@ -64,7 +64,7 @@ function ShowBookDetails(props) {
   function toggleHeart(id) {
 
     const newQuote = quotes.filter((el) => el._id === id).pop()
-    const toggleRmb = ({ ...newQuote, wantToRmb: !newQuote.wantToRmb })
+    const toggleRmb = ({ ...newQuote, fav: !newQuote.fav })
     updateQuote(id, toggleRmb)
 
   };
@@ -80,7 +80,7 @@ function ShowBookDetails(props) {
       });
     setQuotes(prevQuotes => {
       return prevQuotes.map((quote) => {
-        return quote._id === id ? { ...quote, wantToRmb: !quote.wantToRmb } : quote
+        return quote._id === id ? { ...quote, fav: !quote.fav } : quote
       })
     })
 

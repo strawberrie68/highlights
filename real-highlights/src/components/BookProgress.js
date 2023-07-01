@@ -6,12 +6,12 @@ import React from 'react'
 export default function BookProgress(props) {
 
 
-    let wantToRmb = 0;
+    let fav = 0;
     let numberQuote = 0;
     if (props.book) {
-        wantToRmb = props.book?.length == [] ? 0 :
+        fav = props.book?.length == [] ? 0 :
             props.book.map((quote) =>
-                quote.wantToRmb === true ? 1 : 0).reduce((acc, c) => acc + c)
+                quote.fav === true ? 1 : 0).reduce((acc, c) => acc + c)
 
 
         numberQuote =
@@ -30,7 +30,7 @@ export default function BookProgress(props) {
 
 
                 <div className='flex align-middle items-center ml-3'>
-                    <p className='text-2xl text-zinc-300'>{wantToRmb}</p>
+                    <p className='text-2xl text-zinc-300'>{fav}</p>
                     <div className='flex flex-col  ml-2 text-xs'>
                         <FontAwesomeIcon icon="fa-solid fa-heart" style={{ color: "#e0e0e0", }} />
                         <p className='text-zinc-300 '>Fav</p>

@@ -11,7 +11,7 @@ export default function QuoteCard(props) {
         >
             <div className='flex justify-end'
             >
-                <Heart className="text-xl" handleClick={props.toggle} fav={props.quote.wantToRmb} />
+                <Heart className="text-xl" handleClick={props.toggle} fav={props.quote.fav} />
 
             </div>
 

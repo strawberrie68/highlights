@@ -14,9 +14,9 @@ const quoteSchema = new Schema({
     tag: {
         type: String,
     },
-    wantToRmb: {
+    fav: {
         type: Boolean,
-        default: true
+        default: false
     },
     ease: {
         type: Number,

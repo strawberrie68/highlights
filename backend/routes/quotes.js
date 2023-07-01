@@ -16,12 +16,12 @@ router.route('/:id').get((req, res) => {
 router.route('/add').post((req, res) => {
   const quote = req.body.quote;
   const note = req.body.note;
-  const wantToRmb = req.body.wantToRmb;
+  const fav = req.body.fav;
   const tag = req.body.tag;
 
 
   const newQuote = new Quote({
-    quote, note, wantToRmb, tag
+    quote, note, fav, tag
   })
 
   newQuote.save()

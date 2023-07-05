@@ -3,11 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 
-import QuoteCard from './QuoteCard';
-import BookProgress from './BookProgress';
-import CreateQuoteCard from './CreateQuoteCard';
-import CreateQuoteSideMenu from './CreateQuoteSideMenu';
-import Tags from './Tags'
+import QuoteCard from '../components/QuoteCard';
+import BookProgress from '../components/BookProgress';
+import CreateQuoteCard from '../components/CreateQuoteCard';
+import CreateQuoteSideMenu from '../components/CreateQuoteSideMenu';
+import Tags from '../components/Tags'
 
 
 

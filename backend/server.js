@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose')
+const session = require('express-session')
+const flash = require('connect-flash')
 
 require("dotenv").config({ path: "./config/.env" });
 
@@ -23,6 +25,9 @@ const quoteRouter = require('./routes/quotes')
 
 app.use('/books', bookRouter);
 app.use('/quotes', quoteRouter);
+
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)

@@ -112,6 +112,9 @@ export default function Home() {
                         </Link>
 
                     </div>
+                    <div className='border-gray-800 rounded-lg'>
+                        <FontAwesomeIcon icon="fa-brands fa-google" />
+                    </div>
 
 
                 </div>

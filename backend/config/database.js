@@ -2,13 +2,17 @@ const mongoose = require("mongoose");
 
 
 const connectDB = async () => {
-    const uri = process.env.ATLAS_URI;
-    mongoose.connect(uri, { useNewUrlParser: true })
+    try {
+        const conn = await mongoose.connect(process.env.ATLAS_URI, {
+            useNewUrlParser: true
+        })
 
-    const connection = mongoose.connection;
-    connection.once('open', () => {
-        console.log("mongoDB database connection established successfully")
-    })
+        console.log("MongoDB database connection established successfully")
+
+    } catch (err) {
+        console.error(err)
+        process.exit(1)
+    }
 
 };
 

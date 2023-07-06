@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let Book = require('../models/bookModel')
 let Quote = require('../models/quoteModel')
+const auth = require('../middleware/auth')
 
 router.route('/').get((req, res) => {
     Book.find()
@@ -16,7 +17,7 @@ router.route('/:id').get((req, res) => {
         .catch(err => res.status(404).json({ nobookfound: 'No Book found' }))
 })
 
-router.route('/add').post((req, res) => {
+router.route('/add', auth).post((req, res) => {
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
@@ -35,7 +36,7 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
-router.route('/:id').post((req, res) => {
+router.route('/:id',auth).post((req, res) => {
     Quote.create(req.body)
         .then(function (dbQuotes) {
             return Book.findOneAndUpdate({ _id: req.params.id },
@@ -48,14 +49,14 @@ router.route('/:id').post((req, res) => {
         .catch(err => res.json(err))
 })
 
-router.route('/:id').delete((req, res) => {
+router.route('/:id',auth).delete((req, res) => {
     Book.findByIdAndDelete(req.params.id)
         .then(() => res.json('Book deleted'))
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
-router.put('/update/:id', (req, res) => {
+router.put('/update/:id',(req, res) => {
     Book.findByIdAndUpdate(req.params.id, req.body)
         .then(book => res.json({ msg: 'Updated successfully' }))
         .catch(err =>

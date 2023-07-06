@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let Quote = require('../models/quoteModel')
+const auth = require('../middleware/auth')
 
 router.route('/').get((req, res) => {
   Quote.find()
@@ -13,7 +14,7 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
-router.route('/add').post((req, res) => {
+router.route('/add', auth).post((req, res) => {
   const quote = req.body.quote;
   const note = req.body.note;
   const fav = req.body.fav;
@@ -39,7 +40,7 @@ router.put('/update/:id', (req, res) => {
 });
 
 
-router.route('/:id').delete((req, res) => {
+router.route('/:id', auth).delete((req, res) => {
   Quote.findByIdAndDelete(req.params.id)
     .then(() => res.json('Book deleted'))
     .catch(err => res.status(400).json('Error: ' + err))

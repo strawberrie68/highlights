@@ -2,15 +2,15 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose')
 const passport = require('passport');
+const connectDB = require("./config/database");
+
 
 require("dotenv").config({ path: "./config/.env" });
 
 
 // routes
-
 const bookRouter = require('./routes/books')
-const quoteRouter = require('./routes/quotes')
-
+const quoteRouter = require('./routes/quotes');
 
 
 
@@ -23,17 +23,10 @@ app.use(passport.initialize());
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true })
 
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("mongoDB database connection established successfully")
-})
-
+connectDB()
 
 //  routes
-
 app.use('/books', bookRouter);
 app.use('/quotes', quoteRouter);
 

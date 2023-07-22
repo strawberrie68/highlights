@@ -61,6 +61,18 @@
     margin: auto;
   
   }
+  /* Login */
+  .login-page{
+    height:81vh;
+    overflow: hidden;
+  }
+  .login-form-container {
+    width:390px;
+    padding: 2em;
+    border-radius: 10px;
+    margin:auto;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+  }
 
   /* BookList Styles */
   .list {

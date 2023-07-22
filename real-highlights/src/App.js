@@ -12,6 +12,7 @@ import ShowBookList from './components/ShowBookList';
 import ShowBookDetails from './components/ShowBookDetails';
 import CreateBook from './components/CreateBook';
 import Login from './components/Pages/Login/Login'
+import SignUp from './components/Pages/Login/SignUp';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path='/show-book/:id' element={<ShowBookDetails />} />
             <Route path='/create-book' element={<CreateBook />} />
             <Route path='/login' element={<Login/>} />
+            <Route path='/signup' element={<SignUp/>} />
           </Routes>
         </div>
       </Router>

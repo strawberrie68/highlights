@@ -11,6 +11,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import ShowBookList from './components/ShowBookList';
 import ShowBookDetails from './components/ShowBookDetails';
 import CreateBook from './components/CreateBook';
+import Login from './components/Pages/Login/Login'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route exact path='/' element={<ShowBookList />} />
             <Route path='/show-book/:id' element={<ShowBookDetails />} />
             <Route path='/create-book' element={<CreateBook />} />
+            <Route path='/login' element={<Login/>} />
           </Routes>
         </div>
       </Router>

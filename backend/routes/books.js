@@ -2,6 +2,8 @@ const router = require('express').Router();
 let Book = require('../models/bookModel')
 let Quote = require('../models/quoteModel')
 
+//GET ALL BOOKS
+
 router.route('/').get((req, res) => {
     Book.find()
         .populate("quote")
@@ -9,12 +11,16 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
+//FIND BOOK 
+
 router.route('/:id').get((req, res) => {
     Book.findById(req.params.id)
         .populate("quote")
         .then(book => res.json(book))
         .catch(err => res.status(404).json({ nobookfound: 'No Book found' }))
 })
+
+//ADD BOOK
 
 router.route('/add').post((req, res) => {
     const title = req.body.title;
@@ -25,9 +31,10 @@ router.route('/add').post((req, res) => {
     const fav = req.body.fav;
     const genre = req.body.genre
     const isFinishedReading = req.body.isFinishedReading;
+    const user = req.user.id;
 
     const newBook = new Book({
-        title, author, description, bookImg, tag, fav, isFinishedReading, genre
+        title, author, description, bookImg, tag, fav, isFinishedReading, genre,user
     })
 
     newBook.save()

@@ -1,44 +1,72 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
+    const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
         username: '',
         email: '',
-        password:''
+        password: ''
     })
 
     const onChange = (event) => {
         const { name, value } = event.target
         setNewUser(prevInfo => {
-          return {
-            ...prevInfo,
-            [name]: value
-    
-          }
+            return {
+                ...prevInfo,
+                [name]: value
+
+            }
         })
-      };
+    };
+    console.log(newUser)
 
-
-      const onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
-    
+
         axios
-          .post('http://localhost:6010/api/auth/register', newUser)
-          .then((res) => {
-            setNewUser({
-                username: '',
-                email: '',
-                password:''
-              
+            .post('http://localhost:6010/api/auth/register', newUser)
+            .then((res) => {
+                setNewUser({
+                    username: '',
+                    email: '',
+                    password: ''
+
+                });
+                toast('😁 Account Created, redirecting to Login', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                console.log('Account signed up');
+                setTimeout(function () {
+                    navigate('/login');
+                }, 5000);
+
+
+            })
+            .catch((err) => {
+                console.log('Error in Signing up!' + err);
+                toast.error('Error', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             });
-  
-          })
-          .catch((err) => {
-            console.log('Error in Signing up!');
-          });
-      };
+    };
 
     return (
 
@@ -57,7 +85,7 @@ export default function SignUp() {
                 <div className="login-form-container bg-white mt-4">
                     <div className=" sm:mx-auto sm:w-full sm:max-w-sm">
                         <form className="space-y-6"
-                        noValidate onSubmit={onSubmit}
+                            noValidate onSubmit={onSubmit}
                         >
                             <div>
                                 <div className="flex items-center justify-between">
@@ -131,6 +159,18 @@ export default function SignUp() {
 
 
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     )
 }

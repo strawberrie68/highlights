@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.css';
@@ -16,6 +16,9 @@ import SignUp from './components/Pages/Login/SignUp';
 
 
 function App() {
+
+  const [signedIn, setSignedIn] = useState(false)
+
   return (
     <div className="App">
 

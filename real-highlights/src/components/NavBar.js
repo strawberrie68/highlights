@@ -5,13 +5,31 @@ import { Link } from 'react-router-dom';
 
 
 export default function NavBar() {
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        window.location.reload();
+    }
+
+    const user = localStorage.getItem("token")
+
     return (
         <div className='navBar-container'>
             <div className='mb-3- mx-5 pt-5 text-3xl flex justify-between  pb-4'>
                 <Link to='/'>
                     <div className='font-italiana'>Notes</div>
                 </Link>
-                <div><FontAwesomeIcon className="text-xl text-zinc-500" icon={faBars} /></div>
+                <div>
+                    {user &&
+                        <div onclick={handleLogout}>
+                            <p>Sign Out</p>
+
+                        </div>}
+
+                    {!user &&
+                        <FontAwesomeIcon className="text-xl text-zinc-500" icon={faBars} />
+                    }
+                </div>
             </div>
 
             <div className='flex m-1 justify-center '>

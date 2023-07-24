@@ -40,10 +40,10 @@ const bookSchema = new Schema({
         type: [Schema.Types.ObjectId],
         ref: "Quote"
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }
+    // user: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "User"
+    // }
 
 });
 

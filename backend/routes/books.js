@@ -31,10 +31,10 @@ router.route('/add').post((req, res) => {
     const fav = req.body.fav;
     const genre = req.body.genre
     const isFinishedReading = req.body.isFinishedReading;
-    const user = req.user.id;
+   
 
     const newBook = new Book({
-        title, author, description, bookImg, tag, fav, isFinishedReading, genre,user
+        title, author, description, bookImg, tag, fav, isFinishedReading, genre
     })
 
     newBook.save()

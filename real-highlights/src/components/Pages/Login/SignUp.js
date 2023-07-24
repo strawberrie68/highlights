@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
     const navigate = useNavigate();
-    const [newUser, setNewUser] = useState({
+    const [error, setError] = useState("")
+    const [data, setData] = useState({
         username: '',
         email: '',
         password: ''
@@ -14,7 +15,7 @@ export default function SignUp() {
 
     const onChange = (event) => {
         const { name, value } = event.target
-        setNewUser(prevInfo => {
+        setData(prevInfo => {
             return {
                 ...prevInfo,
                 [name]: value
@@ -22,50 +23,56 @@ export default function SignUp() {
             }
         })
     };
-    console.log(newUser)
+    console.log(data)
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
 
-        axios
-            .post('http://localhost:6010/api/auth/register', newUser)
-            .then((res) => {
-                setNewUser({
-                    username: '',
-                    email: '',
-                    password: ''
-
-                });
-                toast('😁 Account Created, redirecting to Login', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                console.log('Account signed up');
-                setTimeout(function () {
-                    navigate('/login');
-                }, 5000);
-
-
-            })
-            .catch((err) => {
-                console.log('Error in Signing up!' + err);
-                toast.error('Error', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+        try {
+            const url = "http://localhost:6010/api/users"
+            const { data: res } = await axios.post(url, data)
+            toast('😁 Account Created, redirecting to Login', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
+            console.log(res.message)
+
+            console.log('Account signed up');
+            setTimeout(function () {
+                navigate('/login');
+            }, 5000);
+
+        } catch (error) {
+            if (error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setError(error.response.data.message)
+            }
+
+            toast.error(error ? { error } : "Error Can't signin", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+
+
+
+
+        }
+
     };
 
     return (

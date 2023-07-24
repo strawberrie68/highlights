@@ -77,29 +77,40 @@
   /* BookList Styles */
   .list {
     display: grid;
-    margin: 3em 2em;
+    /* margin: 3em 2em; */
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 1fr;
     grid-gap: 1.5em;
+    padding-top: 3em;
+    width:100%;
+    margin: auto;
+  
 
   }
 
   @media only screen and (min-width: 600px) {
     .list {
       grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1.0em;
+      margin: auto;
+      padding-top: 2em;
     }
   }
 
   @media only screen and (min-width: 800px) {
     .list {
       grid-template-columns: repeat(4, 1fr);
+
     }
 
   }
 
   @media only screen and (min-width: 1000px) {
     .list {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      padding-top: 2em;
+      max-width:900px;
+      margin: auto;
     }
 
   }

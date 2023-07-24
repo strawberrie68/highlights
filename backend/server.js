@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+
 const connectDB = require("./config/database");
 
 
@@ -11,11 +12,12 @@ require("dotenv").config({ path: "./config/.env" });
 // routes
 const bookRouter = require('./routes/books')
 const quoteRouter = require('./routes/quotes')
-const userRouter = require('./routes/user')
-const authRouter = require('./routes/auth')
+const userRoutes = require('./routes/user')
+const authRoutes = require('./routes/auth')
 
 
 const app = express();
+
 const port = process.env.PORT || 6010;
 
 // pass the passport middleware
@@ -30,8 +32,8 @@ connectDB()
 //  routes
 app.use('/books', bookRouter);
 app.use('/quotes', quoteRouter);
-app.use('/api/users', userRouter )
-app.use('/api/auth', authRouter)
+app.use('/api/users', userRoutes )
+app.use('/api/auth', authRoutes)
 
 
 app.listen(port, () => {

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useNavigate } from 'react-router-dom';
 
 const CreateBook = (props) => {
-  // Define the state with useState hook
-  const navigate = useNavigate();
+
+
   const [book, setBook] = useState({
     title: '',
     author: '',
@@ -16,6 +17,7 @@ const CreateBook = (props) => {
     tags: '',
     fav: true,
     finishedReading: false,
+
   });
 
   const onChange = (event) => {
@@ -44,13 +46,35 @@ const CreateBook = (props) => {
           tags: '',
           fav: true,
           finishedReading: false,
+          
         });
 
-        // Push to /
-        navigate('/');
+
+        toast('Book Create', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+
       })
       .catch((err) => {
         console.log('Error in CreateBook!');
+        toast.error('Book was not created', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
   };
 
@@ -171,6 +195,18 @@ const CreateBook = (props) => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

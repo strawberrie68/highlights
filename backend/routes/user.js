@@ -1,49 +1,31 @@
-const User = require("../models/User")
-const { verifyToken, verifyTokenAndAuth } = require("./verifyToken");
-
-
+const {User, validate} = require("../models/User")
 const router = require("express").Router();
+const bcrypt = require("bcrypt")
 
-//UPDATE
-router.put("/:id", verifyTokenAndAuth, async (req, res) => {
-        if (req.body.password) {
-            req.body.password = CryptoJS.AES.encrypt(
-                req.body.password,
-                process.env.PASS_SECRET
-            ).toString();
-        }
-        try {
-            const updatedUser = await User.findByIdAndUpdate(
-                req.params.id, 
-            {
-                $set: req.body
-            },
-            { new: true });
-
-            res.status(200).json(updatedUser)
-        } catch (err) {
-            res.status(500).json(err)
-
-        }
-
-    
-
-
-})
-
-//DELETE
-
-router.delete("/:id", verifyTokenAndAuth, async (req,res) => {
+router.post("/", async (req,res) => {
     try{
-        await User.findByIdAndDelete(req.params.id)
-        res.status(200).json("User has been deleted")
-    }catch(err){
-        res.status(500).json(err)
+        const {error} = validate(req.body);
+        if(error)
+            return res.status(400).send({ message: error.details[0].message})
+
+        const user = await User.findOne({email: req.body.email});
+        if(user)
+            return res.status(409).send({ message: "user with given email already exost"})
+
+        const salt = await bcrypt.genSalt(Number(process.env.SALT))
+        const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
+        await new User({...req.body,password: hashedPassword}).save();
+        res.status(201).send({message: "User created successfully"})
+    } catch(error){
+        res.status(500).send({message: "Internal Server Error" + error})
+
+
     }
 })
 
 
-
+  
 
 
 module.exports = router

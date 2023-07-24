@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Login() {
-    const navigate = useNavigate();
+export default function LoginPage() {
+  
     const [error, setError] = useState("")
+    console.log(error)
 
-    //Need to figure out how to check if user is signed in
 
     const [data, setdata] = useState({
         email: '',
@@ -52,7 +52,7 @@ export default function Login() {
                     progress: undefined,
                     theme: "light",
                 });
-
+            }}
 
             return (
 
@@ -93,11 +93,7 @@ export default function Login() {
                                             <label htmlFor="password" className="block text-sm leading-6 text-gray-900">
                                                 Password
                                             </label>
-                                            <div className="text-sm">
-                                                <a href="#" className="font-semibold text-amber-400 hover:text-amber-500">
-                                                    Forgot password?
-                                                </a>
-                                            </div>
+                                       
                                         </div>
                                         <div className="mt-2">
                                             <input
@@ -151,7 +147,7 @@ export default function Login() {
                     />
                 </>
             )
-        }
-    }
+        
+    
 }
 

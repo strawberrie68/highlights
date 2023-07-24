@@ -22,12 +22,13 @@ export default function NavBar() {
                 <div>
                     {user &&
                         <div onclick={handleLogout}>
-                            <p>Sign Out</p>
+                            
+                            <p className='signout-button text-sm'>Sign Out</p>
 
                         </div>}
 
-                    {!user &&
-                        <FontAwesomeIcon className="text-xl text-zinc-500" icon={faBars} />
+                    {!user && 
+                    <FontAwesomeIcon className="text-xl text-zinc-500" icon={faBars} />
                     }
                 </div>
             </div>

@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const CreateBook = (props) => {
+  
 
 
   const [book, setBook] = useState({
@@ -17,6 +18,8 @@ const CreateBook = (props) => {
     tags: '',
     fav: true,
     finishedReading: false,
+
+  
 
   });
 
@@ -33,6 +36,7 @@ const CreateBook = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    console.log(book)
 
     axios
       .post('http://localhost:6010/books/add', book)
@@ -45,7 +49,7 @@ const CreateBook = (props) => {
           genre: '',
           tags: '',
           fav: true,
-          finishedReading: false,
+          finishedReading: false
           
         });
 

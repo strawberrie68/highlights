@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
@@ -11,14 +11,14 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import ShowBookList from './components/ShowBookList';
 import ShowBookDetails from './components/ShowBookDetails';
 import CreateBook from './components/CreateBook';
-import Login from './components/Pages/Login/Login-Page'
+import Login from './components/Pages/Login/Login'
 import SignUp from './components/Pages/Login/SignUp';
 
 
 function App() {
 
   const user = localStorage.getItem("token")
-  console.log(user)
+
 
   return (
     <div className="App">
@@ -29,13 +29,12 @@ function App() {
         <NavBar />
         <div>
           <Routes>
-            <Route exact path='/' element={<ShowBookList />} />
+           { user && <Route exact path='/' element={<ShowBookList />} />}
             <Route path='/show-book/:id' element={<ShowBookDetails />} />
             <Route path='/create-book' element={<CreateBook />} />
-            <Route path='/login2' element={<Login/>} />
-            <Route path='/login' element={<Login/>} />
-            <Route path='/signup' element={<SignUp/>} />
-            {/* <Route exact path='/' element={<Navigate replaceto="/login" />}/> */}
+            <Route exact path='/login' element={user? <ShowBookList />: <Login />} />
+            <Route path='/signup' element={user? <ShowBookList />: <SignUp/>} />
+            <Route exact path='/' element={<Navigate replace to="/login" />}/>
           </Routes>
         </div>
       </Router>

@@ -18,7 +18,7 @@ router.post("/", async (req,res) => {
         await new User({...req.body,password: hashedPassword}).save();
         res.status(201).send({message: "User created successfully"})
     } catch(error){
-        res.status(500).send({message: "Internal Server Error" + error})
+        res.status(500).send({message: "user route -Internal Server Error" + error})
 
 
     }

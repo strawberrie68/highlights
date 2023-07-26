@@ -22,7 +22,7 @@ export default function NavBar() {
                 </Link>
                 <div>
                     {user &&
-                        <div onclick={handleLogout}>
+                        <div onClick={handleLogout}>
                             
                             <p className='signout-button text-sm'>Sign Out</p>
 

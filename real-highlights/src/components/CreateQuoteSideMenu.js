@@ -28,7 +28,7 @@ export default function CreateQuoteSideMenu(props) {
 
 
         axios
-            .post(`http://localhost:6010/books/${id}`, quote)
+            .post(`${REACT_APP_SERVER_URL}/books/${id}`, quote)
             .then((res) => {
                 setQuote({
                     quote: '',

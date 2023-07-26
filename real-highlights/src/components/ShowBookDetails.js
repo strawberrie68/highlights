@@ -23,7 +23,7 @@ function ShowBookDetails(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:6010/books/${id}`)
+      .get(`${REACT_APP_SERVER_URL}/books/${id}`)
       .then((res) => {
         setBook(res.data);
         setQuotes(res.data.quote)
@@ -36,7 +36,7 @@ function ShowBookDetails(props) {
 
   const onDeleteClick = (id) => {
     axios
-      .delete(`http://localhost:6010/books/${id}`)
+      .delete(`${REACT_APP_SERVER_URL}/books/${id}`)
       .then((res) => {
         navigate('/');
       })
@@ -71,7 +71,7 @@ function ShowBookDetails(props) {
 
   function updateQuote(id, toggleRmb) {
     axios
-      .put(`http://localhost:6010/quotes/update/${id}`, toggleRmb)
+      .put(`${REACT_APP_SERVER_URL}/quotes/update/${id}`, toggleRmb)
       .then((res) => {
         console.log('updated Quote');
       })
@@ -101,7 +101,7 @@ function ShowBookDetails(props) {
   function UpdateBook(updatedBookInfo) {
 
     axios
-      .put(`http://localhost:6010/books/update/${updatedBookInfo._id}`, updatedBookInfo)
+      .put(`${REACT_APP_SERVER_URL}/books/update/${updatedBookInfo._id}`, updatedBookInfo)
       .then((res) => {
         console.log('updated Book successfully');
       })

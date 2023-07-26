@@ -30,7 +30,7 @@ export default function LoginPage() {
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            const url = "http://localhost:6010/api/auth"
+            const url = `${REACT_APP_SERVER_URL}/api/auth`
             const { data: res } = await axios.post(url, data)
             localStorage.setItem("token", res.data)
             window.location = "/"

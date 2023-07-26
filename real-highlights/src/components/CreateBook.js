@@ -39,7 +39,7 @@ const CreateBook = (props) => {
     console.log(book)
 
     axios
-      .post('http://localhost:6010/books/add', book)
+      .post(`${REACT_APP_SERVER_URL}/books/add`, book)
       .then((res) => {
         setBook({
           title: '',

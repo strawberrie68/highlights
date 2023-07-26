@@ -29,7 +29,7 @@ export default function SignUp() {
         event.preventDefault();
 
         try {
-            const url = "http://localhost:6010/api/users"
+            const url = `${REACT_APP_SERVER_URL}/api/users`
             const { data: res } = await axios.post(url, data)
             toast('😁 Account Created, redirecting to Login', {
                 position: "top-right",

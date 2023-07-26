@@ -6,7 +6,13 @@ helps you remember everything that you have read
 
 
 
-![](https://images.unsplash.com/photo-1544185310-0b3cf501672b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
+[![](Highlights.gif)](https://highlights-co.netlify.app/)
+
+
+[
+<kbd>
+ 🗒️ Project Link
+</kbd>](https://highlights-co.netlify.app/)
 
 
 
@@ -37,6 +43,20 @@ This was shown when I just wanted to toggle the Heart Component. Although the co
 
 
 ## 👩‍💻 To try the project
+
+Frontend
+in .env file
+```
+REACT_APP_SERVER_URL = "link to backend/ your localhost"
+```
+
+Backend
+```
+ATLAS_URI = "your MongoDB string"
+JWT_SECRET= "any passphrase"
+PASS_SECRET = "any passphrase"
+SALT= "any number"
+npm install
 npm start
-in .env file have a Mongoose atlas string
+```
 

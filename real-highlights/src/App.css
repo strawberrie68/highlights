@@ -524,6 +524,10 @@
     padding: 2px;
   }
 
+  .anki-button:hover {
+    box-shadow: 0px 4px 10px 0px rgba(215, 170, 47, 0.15);
+  }
+
   #quotationMark-left {
     position: absolute;
     left: 13%;

@@ -8,7 +8,7 @@ export default function AnkiCard(props) {
 
     useEffect(() => {
         axios
-            .get(`${REACT_APP_SERVER_URL}/quotes/`)
+            .get(`${process.env.REACT_APP_SERVER_URL}/quotes/`)
             .then((res) => {
                 setQuotes(res.data);
             })
@@ -162,7 +162,7 @@ export default function AnkiCard(props) {
     function updateQuote(id, updatedQuote) {
         console.log(id, updatedQuote)
         axios
-            .put(`${REACT_APP_SERVER_URL}/quotes/update/${id}`, updatedQuote)
+            .put(`${process.env.REACT_APP_SERVER_URL}/quotes/update/${id}`, updatedQuote)
             .then((res) => {
                 console.log('updated Quote');
             })

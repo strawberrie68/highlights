@@ -13,7 +13,7 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/books`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/books`)
       .then((res) => {
         setBooks(res.data);
       })
@@ -24,7 +24,7 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get(`${REACT_APP_SERVER_URL}/quotes`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/quotes`)
       .then((res) => {
         setQuotes(res.data);
       })
@@ -42,7 +42,7 @@ function ShowBookList() {
 
   function updateQuote(id, matchQuote) {
     axios
-      .post(`${REACT_APP_SERVER_URL}/quotes/update/${id}`, matchQuote)
+      .post(`${process.env.REACT_APP_SERVER_URL}/quotes/update/${id}`, matchQuote)
       .then((res) => {
         console.log('updated Quote');
       })

@@ -6,7 +6,6 @@ const bookSchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   author: {
@@ -45,6 +44,8 @@ const bookSchema = new Schema({
     ref: "User",
   },
 });
+
+bookSchema.index({ title: 1, user: 1 }, { unique: true });
 
 const Book = mongoose.model("Book", bookSchema);
 

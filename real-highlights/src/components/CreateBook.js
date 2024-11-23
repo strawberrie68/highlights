@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../utils/axiosConfig";
 
-const CreateBook = (props) => {
+const CreateBook = () => {
+  const navigate = useNavigate();
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -13,61 +14,58 @@ const CreateBook = (props) => {
     genre: "",
     tags: "",
     fav: true,
-    finishedReading: false,
+    isFinishedReading: false,
   });
 
   const onChange = (event) => {
     const { name, value, type, checked } = event.target;
-    setBook((prevBook) => {
-      return {
-        ...prevBook,
-        [name]: type === "checkbox" ? checked : value,
-      };
-    });
+    setBook((prevBook) => ({
+      ...prevBook,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(book);
 
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/books/add`, book)
-      .then((res) => {
-        setBook({
-          title: "",
-          author: "",
-          bookImg: "",
-          description: "",
-          genre: "",
-          tags: "",
-          fav: true,
-          finishedReading: false,
-        });
-
-        toast("Book Create", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      })
-      .catch((err) => {
-        console.log("Error in CreateBook!");
-        toast.error("Book was not created", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+    try {
+      await axiosInstance.post("/books/add", book);
+      toast.success("Book Created Successfully", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       });
+
+      // Reset form
+      setBook({
+        title: "",
+        author: "",
+        bookImg: "",
+        description: "",
+        genre: "",
+        tags: "",
+        fav: true,
+        isFinishedReading: false,
+      });
+
+      // Redirect to book list after short delay
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (err) {
+      console.error("Error in CreateBook:", err);
+      toast.error(err.response?.data?.message || "Failed to create book", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
   };
 
   return (
@@ -77,7 +75,7 @@ const CreateBook = (props) => {
           <div className="col-md-8 m-auto">
             <br />
             <Link to="/" className="btn btn-outline-warning float-left">
-              Show BooK List
+              Show Book List
             </Link>
           </div>
           <div className="col-md-8 m-auto">
@@ -93,6 +91,7 @@ const CreateBook = (props) => {
                   className="form-control"
                   value={book.title}
                   onChange={onChange}
+                  required
                 />
               </div>
 
@@ -104,34 +103,36 @@ const CreateBook = (props) => {
                   className="form-control"
                   value={book.author}
                   onChange={onChange}
+                  required
                 />
               </div>
 
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Book Image"
+                  placeholder="Book Image URL"
                   name="bookImg"
                   className="form-control"
                   value={book.bookImg}
                   onChange={onChange}
+                  required
                 />
               </div>
 
               <div className="form-group">
-                <input
-                  type="text"
+                <textarea
                   placeholder="Describe this book"
                   name="description"
                   className="form-control"
                   value={book.description}
                   onChange={onChange}
+                  required
                 />
               </div>
 
               <div className="form-group">
                 <input
-                  type="textß"
+                  type="text"
                   placeholder="Genre"
                   name="genre"
                   className="form-control"
@@ -139,16 +140,18 @@ const CreateBook = (props) => {
                   onChange={onChange}
                 />
               </div>
+
               <div className="form-group">
                 <input
                   type="text"
-                  placeholder="Tags"
+                  placeholder="Tags (comma separated)"
                   name="tags"
                   className="form-control"
                   value={book.tags}
                   onChange={onChange}
                 />
               </div>
+
               <div className="flex align-middle items-center my-4">
                 <div className="form-group">
                   <input
@@ -160,32 +163,31 @@ const CreateBook = (props) => {
                     onChange={onChange}
                   />
                 </div>
-                <label htmlFor="fav" className="mx-4 ">
-                  {" "}
-                  Would you like to study this book?{" "}
+                <label htmlFor="fav" className="mx-4">
+                  Would you like to study this book?
                 </label>
               </div>
 
               <div className="flex items-center">
                 <div className="form-group">
                   <input
-                    id="finshedReading"
+                    id="isFinishedReading"
                     type="checkbox"
-                    placeholder="Finished Reading?"
-                    name="finishedReading"
+                    name="isFinishedReading"
                     className="form-control"
-                    checked={book.finishedReading}
+                    checked={book.isFinishedReading}
                     onChange={onChange}
                   />
                 </div>
-                <label htmlFor="finishedReading" className="mx-4">
-                  Finished Reading?{" "}
+                <label htmlFor="isFinishedReading" className="mx-4">
+                  Finished Reading?
                 </label>
               </div>
 
               <input
                 type="submit"
                 className="btn btn-outline-warning btn-block mt-4"
+                value="Create Book"
               />
             </form>
           </div>

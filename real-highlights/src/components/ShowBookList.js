@@ -1,55 +1,61 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
-
 import AnkiCard from "./AnkiCard";
+import axiosInstance from "../utils/axiosConfig";
 
 function ShowBookList() {
   const [books, setBooks] = useState([]);
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/books`)
+    axiosInstance
+      .get("/books")
       .then((res) => {
         setBooks(res.data);
       })
       .catch((err) => {
-        console.log("Error from ShowBookList");
+        console.error("Error fetching books:", err);
       });
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/quotes`)
+    axiosInstance
+      .get("/quotes")
       .then((res) => {
         setQuotes(res.data);
       })
       .catch((err) => {
-        console.log("Error from ShowBookList quotes");
+        console.error("Error fetching quotes:", err);
       });
   }, []);
 
-  const bookList =
-    books.length === 0
-      ? "there is no book record!"
-      : books.map((book, k) => <BookCard book={book} key={k} />);
+  const updateQuote = async (id, matchQuote) => {
+    try {
+      await axiosInstance.post(`/quotes/update/${id}`, matchQuote);
+      console.log("Quote updated successfully");
+    } catch (err) {
+      console.error("Error updating quote:", err);
+    }
+  };
 
-  function updateQuote(id, matchQuote) {
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/quotes/update/${id}`,
-        matchQuote
-      )
-      .then((res) => {
-        console.log("updated Quote");
-      })
-      .catch((err) => {
-        console.log("Error in UpdateQuoteInfo!");
-      });
-  }
+  const renderBookList = () => {
+    if (books.length === 0) {
+      return (
+        <div className="text-center py-8 text-gray-500">
+          <p className="text-lg mb-4">Your bookshelf is empty</p>
+          <Link
+            to="/create-book"
+            className="text-amber-500 hover:text-amber-600"
+          >
+            Add your first book
+          </Link>
+        </div>
+      );
+    }
+    return books.map((book, k) => <BookCard book={book} key={book._id || k} />);
+  };
 
   return (
     <div className="ShowBookList">
@@ -58,9 +64,7 @@ function ShowBookList() {
 
         <div className="flex justify-between">
           <div className="flex flex-col flex-start px-3">
-            <p className="text-2xl  text-zinc-500 font-italiana">
-              My Bookshelf
-            </p>
+            <p className="text-2xl text-zinc-500 font-italiana">My Bookshelf</p>
             <p className="text-sm text-left text-zinc-300 mt-2">
               All your books
             </p>
@@ -68,13 +72,13 @@ function ShowBookList() {
 
           <Link
             to="/create-book"
-            className="rounded-2xl text-sm btn button-yellow text-zinc-500 border-amber-200 "
+            className="rounded-2xl text-sm btn button-yellow text-zinc-500 border-amber-200"
           >
             + Add New Book
           </Link>
         </div>
 
-        <div className="list">{bookList}</div>
+        <div className="list">{renderBookList()}</div>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../../../utils/axiosConfig";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
@@ -22,34 +22,19 @@ export default function LoginPage() {
   const handleTestUser = async (event) => {
     event.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_SERVER_URL}/api/auth`;
-
-      const testUser = {
-        email: "demo@example.com",
-        password: "Demo123!@#",
-      };
-
-      const { data: res } = await axios.post(url, testUser);
-      localStorage.setItem("token", res.data);
+      // Setup test user with sample data
+      const setupResponse = await axiosInstance.post("/books/test-user/login");
+      localStorage.setItem("token", setupResponse.data.token);
       window.location = "/";
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
-      }
-
-      toast.error(error ? { error } : "Error Can't signin", {
+      console.error("Test user login error:", error);
+      toast.error("Error setting up test user", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
-        theme: "light",
       });
     }
   };
@@ -57,9 +42,8 @@ export default function LoginPage() {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_SERVER_URL}/api/auth`;
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
+      const response = await axiosInstance.post("/api/auth", data);
+      localStorage.setItem("token", response.data.data);
       window.location = "/";
     } catch (error) {
       if (
@@ -70,15 +54,13 @@ export default function LoginPage() {
         setError(error.response.data.message);
       }
 
-      toast.error(error ? { error } : "Error Can't signin", {
+      toast.error(error.response?.data?.message || "Error signing in", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
-        theme: "light",
       });
     }
   };
